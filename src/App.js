@@ -10,6 +10,8 @@ function App() {
 const[newWord,setNewWord]=useState('')
 //info about copin to clipboard
  const[copySuccess,setCopySuccess]= useState('')
+ //choose kind of translating
+ const[translateFrom,setTranslateFrom]= useState('1')
  //spliting string into characters
 const words = text.split("")
 //connecting char into string variable
@@ -20,7 +22,8 @@ const words = text.split("")
    
   if(words){
    words.map((w)=>{
-    w= w.replace("a",'ⰰ')
+     if(translateFrom==='1'){
+w= w.replace("a",'ⰰ')
     w=w.replace("b","ⰱ");
     w= w.replace("c",'ⱌ');
     w=w.replace("č","ⱍ");
@@ -81,6 +84,70 @@ w= w.replace("A",'ⰰ')
     w= w.replace("V",'ⰲ');
     w=w.replace("Z","ⰸ");
     w= w.replace("Ž",'ⰶ');
+     }else{
+       w= w.replace('ⰰ',"a")
+    w=w.replace("ⰱ","b");
+    w= w.replace('ⱌ',"c");
+    w=w.replace("ⱍ","č");
+    w= w.replace('ⱋ',"ć");
+    w=w.replace("ⰴ","d");
+    w= w.replace('ⰴⰶ',"dž");
+    w=w.replace("ⰼ","đ");
+    w= w.replace('ⰵ',"e")
+    w=w.replace("ⱇ","f");
+    w= w.replace('ⰳ',"g");
+    w=w.replace("ⱈ","h");
+    w= w.replace('ⰻ',"i");
+    w=w.replace("ⱓ","j");
+    w= w.replace('ⰽ',"k");
+    w=w.replace("ⰾ","l");
+    w=w.replace("ⰾⱓ","lj");
+    w= w.replace("m",'ⱞ')
+    w=w.replace("n","ⱀ");
+    w= w.replace('ⱀⱓ',"nj");
+    w=w.replace("ⱁ","o");
+    w= w.replace('ⱂ',"p");
+    w=w.replace("ⱃ","r");
+    w= w.replace('ⱄ',"s");
+    w=w.replace("ⱎ","š");
+    w= w.replace('ⱅ',"t")
+    w=w.replace("ⱆ","u");
+    w= w.replace('ⰲ',"v");
+    w=w.replace("ⰸ","z");
+    w= w.replace("ž",'ⰶ');
+    //
+w= w.replace('ⰰ',"A")
+    w=w.replace("ⰱ","B");
+    w= w.replace('ⱌ',"C");
+    w=w.replace("ⱍ","Č");
+    w= w.replace('ⱋ',"Ć");
+    w=w.replace("ⰴ","D");
+    w= w.replace('ⰴⰶ',"DŽ");
+    w=w.replace("ⰼ","Đ");
+    w= w.replace('ⰵ',"E")
+    w=w.replace("ⱇ","F");
+    w= w.replace('ⰳ',"G");
+    w=w.replace("ⱈ","H");
+    w= w.replace('ⰻ',"I");
+    w=w.replace("ⱓ","J");
+    w= w.replace('ⰽ',"K");
+    w=w.replace("ⰾ","L");
+    w=w.replace("ⰾⱓ","LJ");
+    w= w.replace('ⱞ',"M")
+    w=w.replace("ⱀ","N");
+    w= w.replace('ⱀⱓ',"NJ");
+    w=w.replace("ⱁ","O");
+    w= w.replace('ⱂ',"P");
+    w=w.replace("ⱃ","R");
+    w= w.replace('ⱄ',"S");
+    w=w.replace("ⱎ","Š");
+    w= w.replace('ⱅ',"T")
+    w=w.replace("ⱆ","U");
+    w= w.replace('ⰲ',"V");
+    w=w.replace("ⰸ","Z");
+    w= w.replace('ⰶ',"Ž");
+     }
+    
 
 
     //console.log("W is "+ w)
@@ -115,21 +182,28 @@ w= w.replace("A",'ⰰ')
     setText("")
     setNewWord("")
   }
+  console.log("Target value",translateFrom)
   return (
     <div className="translator">
       <img src="https://images.pexels.com/photos/772690/pexels-photo-772690.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="slike" />
      
      <div className="up">
-       <h1>Translator</h1>
-      <h3>Latin to Glagolic</h3>
+       <h1>Translator </h1>
+      <select name="choose" id="choose"onChange={(e)=>setTranslateFrom(e.target.value)}>
+          <option value="1">Latin/glagolitic</option>
+          <option value='2'>Glagolitic/latin</option>
+        </select>
+        <h3>Enter new text</h3>
        <textarea name="transText"value={text} onChange={(e)=>setText(e.target.value)} id="transText" cols="25" rows="6"></textarea>
        <button className="btn btn-translate" onClick={()=>translate()}>Translate</button>
-        <button className="btn clearText"onClick={()=>clearState()}>Clear All Fields</button>
+       
+       
+         <button className="btn clearText"onClick={()=>clearState()}>Clear All Fields</button>
        </div>
        
      <div className="down"> 
      <h3>Translated text</h3>
-      <textarea name="transText"value={newWord} id="transText" cols="25" rows="6"></textarea>
+      <textarea name="transText "value={newWord} id="transText" cols="25" rows="6" className='text2'></textarea>
       <button className="btn copyToClipboardButton" onClick={()=>copyToClipBoard(newWord)}>Copy to clipboard</button>
      
       </div>
